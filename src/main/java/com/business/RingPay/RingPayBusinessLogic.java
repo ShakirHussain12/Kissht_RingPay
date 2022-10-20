@@ -141,12 +141,12 @@ public class RingPayBusinessLogic extends Utilities {
 		softAssertion.assertEquals(errorMsg, " Please enter valid mobile number");
 		extent.extentLoggerPass("TC_Ring_Core_07",
 				"TC_Ring_Core_07 - To Verify User enter mobile number less than 10 digit");
-
+		
 		clearField(RingLoginPage.objMobTextField, "Mobile Text Field");
 		// type(RingLoginPage.objMobTextField,specialCharMob,"Mobile text field");
 		logger.info("Verify mobile number with special characters");
-		explicitWaitVisibility(RingLoginPage.objMobError, 10);
 		mobileNoValidation(specialCharMob);
+		explicitWaitVisibility(RingLoginPage.objMobError, 10);
 		softAssertion.assertEquals(errorMsg, " Please enter valid mobile number");
 		extent.extentLoggerPass("TC_Ring_Core_10",
 				"TC_Ring_Core_10 - To Verify User tries enter punctuations or special character in field");
@@ -164,9 +164,9 @@ public class RingPayBusinessLogic extends Utilities {
 		// type(RingLoginPage.objMobTextField,validMob,"Mobile text field");
 		logger.info("Verify mobile number with entering valid number");
 		mobileNoValidation(validMob);
-		explicitWaitVisibility(RingLoginPage.objOtpHeader, 10);
-		String otpHeaderTxt = getText(RingLoginPage.objOtpHeader);
-		softAssertion.assertEquals(otpHeaderTxt, "Enter OTP");
+		explicitWaitVisibility(RingLoginPage.OtpAutoRead, 10);
+		String otpAutoRead = getText(RingLoginPage.OtpAutoRead);
+		softAssertion.assertEquals(otpAutoRead, "Auto Reading OTP");
 		extent.extentLoggerPass("TC_Ring_Core_13", "TC_Ring_Core_13 - To Verify User tries enter valid mobile number");
 
 		explicitWaitClickable(RingLoginPage.objEditMobNo, 10);
@@ -190,14 +190,8 @@ public class RingPayBusinessLogic extends Utilities {
 		System.out.println(mobNoText);
 		softAssertion.assertNotEquals(validMob, mobNoText);
 		extent.extentLoggerPass("TC_Ring_Core_16",
-				"TC_Ring_Core_16 - To verify user clicks continue button after mobile number modification"); // user
-																												// automatically
-																												// goes
-																												// to
-																												// OTP
-																												// generation
-																												// page
-
+				"TC_Ring_Core_16 - To verify user clicks continue button after mobile number modification"); 
+		
 		explicitWaitVisibility(RingLoginPage.OtpAutoRead, 10);
 		WebElement resendOtp = findElement(RingLoginPage.resendOtpTxt);
 		String clickable = getAttributValue("clickable", RingLoginPage.resendOtpTxt);
