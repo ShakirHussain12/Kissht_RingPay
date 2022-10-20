@@ -612,31 +612,22 @@ public class Utilities extends ExtentReporter {
 	 * @param text      the text
 	 */
 	public void type(By byLocator, String input, String FieldName) {
-		try {
-			waitTime(2000);
-			if (!getPlatform().equals("Web")) {
-				Actions a = new Actions(getDriver());
-				if(FieldName.contains("Password")) {
-					a.sendKeys(DecryptPassword.decrypt(input));
-				}else{
-					a.sendKeys(input);
-				}				
-				a.perform();
-			} else {
-				WebElement element = findElement(byLocator);
-				if(FieldName.contains("Password")) {
-					//a.sendKeys(DecryptPassword.decrypt(input));
-					element.sendKeys(DecryptPassword.decrypt(input));
-				}else{
-					element.sendKeys(input);
-				}	
-			}
-			input = input.split("\n")[0];
-			logger.info("Typed the value " + input + " into " + FieldName);
-			extent.extentLogger("", "Typed the value " + input + " into " + FieldName);
-		} catch (Exception e) {
-			logger.error(e);
-		}
+		 try {
+	            waitTime(1000);
+	            if (!getPlatform().equals("Web")) {
+	                Actions a = new Actions(getDriver());
+	                a.sendKeys(input);
+	                a.perform();
+	            } else {
+	                WebElement element = findElement(byLocator);
+	                element.sendKeys(input);
+	            }
+	            input = input.split("\n")[0];
+	            logger.info("Typed the value " + input + " into " + FieldName);
+	            extent.extentLogger("", "Typed the value " + input + " into " + FieldName);
+	        } catch (Exception e) {
+	            logger.error(e);
+	        }
 	}
 
 	/**

@@ -23,13 +23,21 @@ public class RingPayTestScripts {
 		ringPayBusiness = new com.business.RingPay.RingPayBusinessLogic("ring");
 	}
 	
-	@Test(priority = 0)
+	@Test
+	@Parameters({"Valid_MobileNumber","validOTP"})
+	public void playStore(String mob,String otp) throws Exception {
+		ringPayBusiness.otpTimerStart(mob,otp);
+		//ExtentReporter.jiraID = "PP-28";
+	}
+	
+	
+/*	@Test(priority = 0)
 	@Parameters({"Valid_MobileNumber","EditValid_MobileNumber","LessThanTenDigits_MobileNumber","SpecialCharacters_MobileNumber","Space_MobileNumber","LessThanSixDigitOTP","InvalidOTP"})
     public void  User_Playstore_Flow(String validMob, String editMob, String lessThanTenMob, String specialCharMob, String spaceMob,String lessOtp, String invalidOtp) throws Exception {
 		ringPayBusiness.User_Play_Store_Flow(validMob,editMob,lessThanTenMob,specialCharMob,spaceMob,lessOtp,invalidOtp);
 		RingLoginPage.getEditMob(editMob);
 		ExtentReporter.jiraID = "PP-28";
-	}
+	} */
 
 	/*@Test(priority = 1)
 	@Parameters({"MobileNumber"})
