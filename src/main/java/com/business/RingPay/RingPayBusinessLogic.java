@@ -132,7 +132,6 @@ public class RingPayBusinessLogic extends Utilities {
 
 		extent.extentLoggerPass("TC_Ring_Core_05", "TC_Ring_Core_05 - To Verify the Verify mobile screen");
 
-		// Aclick(RingLoginPage.objMobTextField,"Mobile text field");
 		// type(RingLoginPage.objMobTextField,lessThanTenMob,"Mobile text field");
 		logger.info("Verify mobile number with <10 digits");
 		// Aclick(RingLoginPage.objNextBtn, "Next Button");
