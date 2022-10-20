@@ -98,43 +98,17 @@ public class RingPayBusinessLogic extends Utilities {
 			String spaceMob, String lessOtp, String invalidOtp) throws Exception {
 		extent.HeaderChildNode("User Play store Flow Module");
 
-		/*
-		 * explicitWaitVisibility(RingLoginPage.objCamPermHeader,20);
-		 * verifyElementPresent(RingLoginPage.objCamPermHeader,
-		 * "Camera Permission required"); String camPermHeaderTxt =
-		 * getText(RingLoginPage.objCamPermHeader);
-		 * softAssertion.assertEquals(camPermHeaderTxt, "Camera Permission required");
-		 * logger.info("Camera Permission required popup");
-		 */
+		
 		cameraPermission();
 		extent.extentLogger("PASS",
 				"TC_Ring_Core_01 - To Verify the Login screen when user opens the app by clicking on App Icon");
 
-		/*
-		 * explicitWaitVisibility(RingLoginPage.objCamPermPopUp,10);
-		 * Aclick(RingLoginPage.objCamPermPopUp, "Enable permissions button");
-		 * logger.info("Foreground allow camera permissions");
-		 * extent.extentLoggerPass("Foreground allow camera permissions",
-		 * "Foreground allow camera permissions options");
-		 * explicitWaitVisibility(RingLoginPage.objAllowCamera,10);
-		 * Aclick(RingLoginPage.objAllowCamera,
-		 * "While using the app foreground camera permission option");
-		 * 
-		 * explicitWaitVisibility(RingLoginPage.objQrCodeHeader,10);
-		 * logger.info("Don't have QR Code header"); String qrCodeHeader =
-		 * getText(RingLoginPage.objQrCodeHeader);
-		 * softAssertion.assertEquals(qrCodeHeader, "Don't have a QR code?");
-		 */
+		
 		enablePermissions();
 		extent.extentLoggerPass("TC_Ring_Core_02",
 				"TC_Ring_Core_02 - To verify When User selects Enable Permission option");
 
-		/*
-		 * explicitWaitVisibility(RingLoginPage.objLoginLink,15);
-		 * Aclick(RingLoginPage.objLoginLink, "Signup/Login link");
-		 * 
-		 * logger.info("Signup/Login Header");
-		 */
+		
 		String loginHeaderTxt = getText(RingLoginPage.objLoginHeader);
 		softAssertion.assertEquals(loginHeaderTxt, "Sign Up / Login");
 
@@ -152,26 +126,10 @@ public class RingPayBusinessLogic extends Utilities {
 		extent.extentLoggerPass("TC_Ring_Core_03",
 				"TC_Ring_Core_03 - To verify User Selects signup/Login option under Don't have a QR Code?");
 
-		// explicitWaitVisibility(RingLoginPage.objLoginMobile,10);
-		// Aclick(RingLoginPage.objLoginMobile, "Continue with Mobile option");
-
-		/*
-		 * explicitWaitVisibility(RingLoginPage.objNoneBtn,15); String noneOfAboveTxt =
-		 * getText(RingLoginPage.objNoneBtn); logger.info("True caller popup");
-		 * softAssertion.assertEquals(noneOfAboveTxt, "NONE OF THE ABOVE");
-		 */
+		
 		loginMobile();
 		extent.extentLoggerPass("TC_Ring_Core_04", "TC_Ring_Core_04 - To Verify when user Continue with mobile option");
 
-		// Aclick(RingLoginPage.objNoneBtn, "None of the above");
-
-		/*
-		 * explicitWaitVisibility(RingLoginPage.objVerifyMobHeader,10);
-		 * logger.info("Verify Mobile Header"); String verifyMobHeaderTxt =
-		 * getText(RingLoginPage.objVerifyMobHeader);
-		 * softAssertion.assertEquals(verifyMobHeaderTxt, "Verify Mobile");
-		 * explicitWaitVisibility(RingLoginPage.objMobTextField,10);
-		 */
 		extent.extentLoggerPass("TC_Ring_Core_05", "TC_Ring_Core_05 - To Verify the Verify mobile screen");
 
 		// Aclick(RingLoginPage.objMobTextField,"Mobile text field");
