@@ -396,6 +396,8 @@ public class RingPayBusinessLogic extends Utilities {
 	
 	//TC29
 	//shashi
+	//shakir
+	//yash
 	public void blockUserAfter_5_Attemp(String mobNo,String otp) throws Exception {
 		extent.HeaderChildNode("Block Number For 2 Minutes If Attemp More Than 5 Time");
 		cameraPermission();
