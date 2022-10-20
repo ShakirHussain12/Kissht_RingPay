@@ -442,6 +442,7 @@ public class RingPayBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Block Number For 2 Minutes If Attemp More Than 5 Time");
 		cameraPermission();
 		enablePermissions();
+		Aclick(null, otp);
 		explicitWaitVisibility(RingLoginPage.objLoginMobile, 10);
 		Aclick(RingLoginPage.objLoginMobile, "Continue with Mobile option");
 		explicitWaitVisibility(RingLoginPage.objMobTextField, 10);
