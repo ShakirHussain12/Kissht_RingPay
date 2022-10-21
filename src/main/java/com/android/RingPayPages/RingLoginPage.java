@@ -102,6 +102,7 @@ public class RingLoginPage {
 	//register button
 	public static By objOK = By.xpath("//*[@text='OK']");
 	
+	
 	//You have been chosen ad header
 	public static By objAdHeader = By.xpath("//*[@text='You’ve been chosen!']");
 	
