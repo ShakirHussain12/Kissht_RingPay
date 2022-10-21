@@ -104,6 +104,7 @@ public class RingLoginPage {
 	
 	
 	//You have been chosen ad header
+	
 	public static By objAdHeader = By.xpath("//*[@text='You’ve been chosen!']");
 	
 	//Ad close button
