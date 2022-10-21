@@ -20,6 +20,7 @@ import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import com.utility.Utilities;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.restassured.module.jsv.JsonSchemaValidator;
@@ -94,7 +95,7 @@ public class RingPayBusinessLogic extends Utilities {
 	 * 
 	 */
 
-	public void User_Play_Store_Flow(String validMob, String editMob, String lessThanTenMob, String specialCharMob,
+	public void User_Play_Store_Flow(String validMob, String editMob, String lessThanTenMob,String moreThanTenMob, String specialCharMob,
 			String spaceMob, String lessOtp, String invalidOtp) throws Exception {
 		extent.HeaderChildNode("User Play store Flow Module");
 
@@ -143,7 +144,19 @@ public class RingPayBusinessLogic extends Utilities {
 				"TC_Ring_Core_07 - To Verify User enter mobile number less than 10 digit");
 		
 		clearField(RingLoginPage.objMobTextField, "Mobile Text Field");
+		logger.info("Verify mobile number with >10 digits");
+		mobileNoValidation(moreThanTenMob);
+		explicitWaitVisibility(RingLoginPage.OtpAutoRead, 10);
+		String otpAutoRead = getText(RingLoginPage.OtpAutoRead);
+		softAssertion.assertEquals(otpAutoRead, "Auto Reading OTP");
+		extent.extentLoggerPass("TC_Ring_Core_08",
+				"TC_Ring_Core_08 - To Verify User enter mobile number more than 10 digit");
+		
 		// type(RingLoginPage.objMobTextField,specialCharMob,"Mobile text field");
+		Back(1);
+		trueCallerPopup();
+		explicitWaitVisibility(RingLoginPage.objNoneBtn, 15);
+		Aclick(RingLoginPage.objNoneBtn, "None of the above");
 		logger.info("Verify mobile number with special characters");
 		mobileNoValidation(specialCharMob);
 		explicitWaitVisibility(RingLoginPage.objMobError, 10);
@@ -165,7 +178,7 @@ public class RingPayBusinessLogic extends Utilities {
 		logger.info("Verify mobile number with entering valid number");
 		mobileNoValidation(validMob);
 		explicitWaitVisibility(RingLoginPage.OtpAutoRead, 10);
-		String otpAutoRead = getText(RingLoginPage.OtpAutoRead);
+		//String otpAutoRead = getText(RingLoginPage.OtpAutoRead);
 		softAssertion.assertEquals(otpAutoRead, "Auto Reading OTP");
 		extent.extentLoggerPass("TC_Ring_Core_13", "TC_Ring_Core_13 - To Verify User tries enter valid mobile number");
 
@@ -174,9 +187,9 @@ public class RingPayBusinessLogic extends Utilities {
 		Aclick(RingLoginPage.objEditMobNo, "Edit Mobile number");
 		extent.extentLoggerPass("TC_Ring_Core_14",
 				"TC_Ring_Core_14 - To Verify User should able to see Edit mobile no option");
-
+		
+		trueCallerPopup();
 		explicitWaitVisibility(RingLoginPage.objNoneBtn, 15);
-		logger.info("True caller popup");
 		Aclick(RingLoginPage.objNoneBtn, "None of the above");
 		logger.info("Verify Mobile Header");
 		String verifyMobHeaderTxt = getText(RingLoginPage.objVerifyMobHeader);
@@ -191,7 +204,7 @@ public class RingPayBusinessLogic extends Utilities {
 		softAssertion.assertNotEquals(validMob, mobNoText);
 		extent.extentLoggerPass("TC_Ring_Core_16",
 				"TC_Ring_Core_16 - To verify user clicks continue button after mobile number modification"); 
-		
+		//18 TO DO
 		explicitWaitVisibility(RingLoginPage.OtpAutoRead, 10);
 		WebElement resendOtp = findElement(RingLoginPage.resendOtpTxt);
 		String clickable = getAttributValue("clickable", RingLoginPage.resendOtpTxt);
@@ -199,37 +212,26 @@ public class RingPayBusinessLogic extends Utilities {
 		extent.extentLoggerPass("TC_Ring_Core_19",
 				"TC_Ring_Core_19 - To Verify the text given below the OTP number box when the timer is in progress");
 
-		// explicitWaitVisibilityNonDefault(RingLoginPage.OtpTimeOut,90);
-		// String focused = getAttributValue("focused",RingLoginPage.objOtpTxtField1);
-		// System.out.println(focused);
+		
 		explicitWaitClickable(RingLoginPage.resendOtpTxt, 10);
 		extent.extentLoggerPass("TC_Ring_Core_20",
 				"TC_Ring_Core_20 - To Verify the text given below the OTP number box when the timer is completed.");
 
-		// String focused = getAttributValue("focused",RingLoginPage.objOtpTxtField1);
-		// Aclick(RingLoginPage.objOtpHeader,"Enter OTP header to lose focus");
 		String focused_before = getAttributValue("focused", RingLoginPage.objOtpTxtField1);
 		System.out.println(focused_before);
 		softAssertion.assertEquals("false", focused_before);
 		extent.extentLoggerPass("TC_Ring_Core_21",
 				"TC_Ring_Core_21 - To Verify the OTP number box behaviour when the timer is started.");
-
-		Aclick(RingLoginPage.objOtpTxtField1, "Otp text field");
-		String focused_after = getAttributValue("focused", RingLoginPage.objOtpTxtField1);
+		
+		explicitWaitVisibility(RingLoginPage.resendOtpTxt,10);
+		String focused_after = getAttributValue("clickable", RingLoginPage.objOtpTxtField1);
 		System.out.println(focused_after);
+		Aclick(RingLoginPage.objOtpTxtField1, "Otp text field");
 		softAssertion.assertEquals("true", focused_after);
 		extent.extentLoggerPass("TC_Ring_Core_22",
 				"TC_Ring_Core_22 - To Verify the OTP number box behaviour when the timer is completed.");
 
-		/*
-		 * type(RingLoginPage.objOtpTxtField1,"12345","Enter OTP"); Boolean Otp_flag =
-		 * verifyElementNotPresent(RingLoginPage.objQrCodeHeader,10);
-		 * softAssertion.assertEquals(false, Otp_flag);
-		 * extent.extentLoggerPass("TC_Ring_Core_26",
-		 * "TC_Ring_Core_26 - To Verify if user enters less than 6 digit number");
-		 */
-
-		// clearField(RingLoginPage.objOtpTxtField1,"Enter OTP");
+		Aclick(RingLoginPage.objOtpTxtField1, "Otp text field");
 		type(RingLoginPage.objOtpTxtField1, invalidOtp, "Enter OTP");
 		explicitWaitVisibility(RingLoginPage.OtpError, 10);
 		logger.info("OTP Error message");
@@ -238,18 +240,23 @@ public class RingPayBusinessLogic extends Utilities {
 		extent.extentLoggerPass("TC_Ring_Core_23", "TC_Ring_Core_23 - To Verify User enter invalid OTP");
 
 		clearField(RingLoginPage.objOtpTxtField1, "Enter OTP");
+		Aclick(RingLoginPage.objOtpTxtField1, "Otp text field");
 		type(RingLoginPage.objOtpTxtField1, lessOtp, "Enter OTP");
 		Boolean Otp_flag = verifyElementNotPresent(RingLoginPage.OtpError, 10);
 		softAssertion.assertEquals(false, Otp_flag);
 		extent.extentLoggerPass("TC_Ring_Core_26",
 				"TC_Ring_Core_26 - To Verify if user enters less than 6 digit number");
-
+		
+		explicitWaitClickable(RingLoginPage.resendOtpTxt,10);
+		extent.extentLoggerPass("TC_Ring_Core_27",
+				"TC_Ring_Core_27 - To Verify Resend OTP should clickable");
+		
 		softAssertion.assertAll();
 
 	}
 
 	public void cameraPermission() throws Exception {
-		explicitWaitVisibility(RingLoginPage.objCamPermHeader, 20);
+		explicitWaitVisibility(RingLoginPage.objCamPermHeader, 30);
 		verifyElementPresent(RingLoginPage.objCamPermHeader, "Camera Permission required");
 		String camPermHeaderTxt = getText(RingLoginPage.objCamPermHeader);
 		softAssertion.assertEquals(camPermHeaderTxt, "Camera Permission required");
@@ -276,21 +283,30 @@ public class RingPayBusinessLogic extends Utilities {
 	public void loginMobile() throws Exception {
 		explicitWaitVisibility(RingLoginPage.objLoginMobile, 10);
 		Aclick(RingLoginPage.objLoginMobile, "Continue with Mobile option");
+		
+			trueCallerPopup();
+			explicitWaitVisibility(RingLoginPage.objNoneBtn, 15);
+			String noneOfAboveTxt = getText(RingLoginPage.objNoneBtn);
+			softAssertion.assertEquals(noneOfAboveTxt, "NONE OF THE ABOVE");
 
-		explicitWaitVisibility(RingLoginPage.objNoneBtn, 15);
-		String noneOfAboveTxt = getText(RingLoginPage.objNoneBtn);
-		logger.info("True caller popup");
-		softAssertion.assertEquals(noneOfAboveTxt, "NONE OF THE ABOVE");
+			Aclick(RingLoginPage.objNoneBtn, "None of the above");
 
-		Aclick(RingLoginPage.objNoneBtn, "None of the above");
-
-		explicitWaitVisibility(RingLoginPage.objVerifyMobHeader, 10);
-		logger.info("Verify Mobile Header");
-		String verifyMobHeaderTxt = getText(RingLoginPage.objVerifyMobHeader);
-		softAssertion.assertEquals(verifyMobHeaderTxt, "Verify Mobile");
-		explicitWaitVisibility(RingLoginPage.objMobTextField, 10);
+			explicitWaitVisibility(RingLoginPage.objVerifyMobHeader, 10);
+			logger.info("Verify Mobile Header");
+			String verifyMobHeaderTxt = getText(RingLoginPage.objVerifyMobHeader);
+			softAssertion.assertEquals(verifyMobHeaderTxt, "Verify Mobile");
+			explicitWaitVisibility(RingLoginPage.objMobTextField, 10);
+		
 	}
-
+	
+	public void trueCallerPopup() throws Exception{
+		if(verifyElementPresent(RingLoginPage.objTruSkipBtn,"True caller popup")) {
+			Aclick(RingLoginPage.objTruSkipBtn,"True caller skip button");
+		}
+		else {
+			logger.info("Truecaller is not installed");
+		}
+	}
 	public void mobileNoValidation(String mobNo) throws Exception {
 		Aclick(RingLoginPage.objMobTextField, "Mobile text field");
 		type(RingLoginPage.objMobTextField, mobNo, "Mobile text field");
@@ -389,7 +405,7 @@ public class RingPayBusinessLogic extends Utilities {
 	}
 	
 	//TC29
-	//shashi
+	
 	public void blockUserAfter_5_Attemp(String mobNo,String otp) throws Exception {
 		extent.HeaderChildNode("Block Number For 2 Minutes If Attemp More Than 5 Time");
 		cameraPermission();
@@ -427,7 +443,21 @@ public class RingPayBusinessLogic extends Utilities {
 		waitTime(10000);
 	}
 
+	public void dateCheck() throws Exception{
+		hideKeyboard();
+        waitTime(7000);
+        click(RingLoginPage.objDOB, "Date of Birth Field");
+        waitTime(7000);
+        dateWheeler2("2002");
+        waitTime(7000);
+        dateWheeler1("Feb");
+        waitTime(7000);
+        dateWheeler("01");
+        waitTime(7000);
+        click(RingLoginPage.objOK, "OK Button");
 
+
+	}
 
 	/**
 	 * Business method for RingPay Application Login
